@@ -12,7 +12,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Search, Plus, Camera, Crown } from 'lucide-react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { router } from 'expo-router'
-import MauritanianPattern from '@/components/MauritanianPattern'
 import Colors from '@/constants/colors'
 
 interface Chat {
@@ -190,9 +189,7 @@ export default function ChatsScreen() {
       >
         <View style={styles.header}>
           <View style={styles.titleContainer}>
-            <MauritanianPattern size={24} />
             <Text style={styles.title}>رسائلك</Text>
-            <MauritanianPattern size={24} />
           </View>
           <View style={styles.headerActions}>
             <TouchableOpacity style={styles.headerButton} testID="chats-header-camera">

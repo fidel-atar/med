@@ -18,7 +18,6 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { router } from 'expo-router'
 import StoryCircle from '@/components/StoryCircle'
 import PostCard from '@/components/PostCard'
-import MauritanianPattern from '@/components/MauritanianPattern'
 import Colors from '@/constants/colors'
 import { useAuth } from '@/contexts/AuthContext'
 import { usePosts } from '@/hooks/usePosts'
@@ -185,11 +184,7 @@ export default function CommunityScreen() {
         style={styles.headerGradient}
       >
         <View style={styles.header}>
-          <View style={styles.titleContainer}>
-            <MauritanianPattern size={24} />
-            <View style={{ width: 0 }} />
-            <MauritanianPattern size={24} />
-          </View>
+          <View style={styles.titleContainer} />
           <View style={styles.headerActions}>
             <TouchableOpacity
               testID="search-button"
