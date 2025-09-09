@@ -20,12 +20,14 @@ import {
   MapPin,
   ArrowLeft,
   Share,
+  Users,
 } from 'lucide-react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import Colors from '@/constants/colors'
 import MauritanianPattern from '@/components/MauritanianPattern'
 import PostCard from '@/components/PostCard'
 import { usePosts } from '@/hooks/usePosts'
+import { useFriends } from '@/hooks/useFriends'
 
 interface UserProfile {
   id: string
@@ -90,6 +92,7 @@ export default function UserProfilePage() {
   const [user, setUser] = useState<UserProfile | null>(null)
   const [isFollowing, setIsFollowing] = useState(false)
   const { posts, isLoading } = usePosts()
+  const { friends, isLoading: isFriendsLoading } = useFriends()
 
   useEffect(() => {
     if (userId && mockUsers[userId]) {
@@ -304,6 +307,57 @@ export default function UserProfilePage() {
               <Text style={styles.gameStatLabel}>نسبة الفوز</Text>
             </View>
           </View>
+        </View>
+
+        {/* Friends Section */}
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeader}>
+            <Users size={20} color={Colors.mauritanian.mauritanianBlue} />
+            <Text style={styles.sectionTitle}>الأصدقاء</Text>
+          </View>
+          {isFriendsLoading ? (
+            <Text style={styles.loadingText} testID="friends-loading">جارٍ تحميل الأصدقاء...</Text>
+          ) : (friends?.length ?? 0) === 0 ? (
+            <Text style={styles.emptyText} testID="friends-empty">لا يوجد أصدقاء بعد</Text>
+          ) : (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.friendsScroller}
+              contentContainerStyle={styles.friendsRow}
+              testID="friends-list"
+            >
+              {friends.slice(0, 12).map((f: any) => {
+                const fr = f?.friend ?? {}
+                const friendId: string = fr.id ?? ''
+                const fullName: string = fr.full_name ?? fr.username ?? 'مستخدم'
+                const avatar: string | undefined = fr.avatar_url ?? undefined
+                const username: string = fr.username ?? 'user'
+                return (
+                  <TouchableOpacity
+                    key={f.id}
+                    style={styles.friendCard}
+                    onPress={() => Alert.alert('الملف الشخصي', `قريبًا: فتح ملف ${username}`)}
+                    testID={`friend-${friendId}`}
+                  >
+                    {avatar ? (
+                      <Image source={{ uri: avatar }} style={styles.friendAvatar} />
+                    ) : (
+                      <View style={styles.friendAvatarFallback}>
+                        <Text style={styles.friendInitial}>{username.charAt(0).toUpperCase()}</Text>
+                      </View>
+                    )}
+                    <Text style={styles.friendName} numberOfLines={1}>
+                      {fullName}
+                    </Text>
+                    <Text style={styles.friendUsername} numberOfLines={1}>
+                      @{username}
+                    </Text>
+                  </TouchableOpacity>
+                )
+              })}
+            </ScrollView>
+          )}
         </View>
 
         <View style={styles.sectionContainer}>
@@ -631,6 +685,55 @@ const styles = StyleSheet.create({
   },
   postsList: {
     gap: 12,
+  },
+  friendsScroller: {
+    marginHorizontal: -4,
+  },
+  friendsRow: {
+    paddingHorizontal: 4,
+    gap: 12,
+  },
+  friendCard: {
+    width: 110,
+    alignItems: 'center',
+    backgroundColor: Colors.mauritanian.lightSand,
+    padding: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.mauritanian.sand,
+  },
+  friendAvatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    marginBottom: 8,
+  },
+  friendAvatarFallback: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    marginBottom: 8,
+    backgroundColor: Colors.mauritanian.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Colors.mauritanian.sand,
+  },
+  friendInitial: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: Colors.mauritanian.mauritanianBlue,
+  },
+  friendName: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: Colors.mauritanian.darkGray,
+    textAlign: 'center',
+  },
+  friendUsername: {
+    fontSize: 12,
+    color: Colors.mauritanian.mediumGray,
+    textAlign: 'center',
   },
   joinDateContainer: {
     flexDirection: 'row',
