@@ -301,7 +301,7 @@ export default function ChatScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={[Colors.mauritanian.white, Colors.mauritanian.lightSand]}
+        colors={[Colors.mauritanian.white, Colors.mauritanian.white]}
         style={styles.headerGradient}
       >
         <View style={styles.header}>
@@ -414,7 +414,7 @@ export default function ChatScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.mauritanian.lightSand,
+    backgroundColor: Colors.mauritanian.white,
   },
   headerGradient: {
     paddingBottom: 2,
