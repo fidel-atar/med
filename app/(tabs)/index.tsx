@@ -181,7 +181,7 @@ export default function CommunityScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={[Colors.mauritanian.white, Colors.mauritanian.lightSand]}
+        colors={[Colors.mauritanian.white, Colors.mauritanian.white]}
         style={styles.headerGradient}
       >
         <View style={styles.header}>
