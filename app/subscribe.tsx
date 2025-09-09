@@ -61,6 +61,22 @@ export default function SubscribeScreen() {
   const [anim] = useState(new Animated.Value(0))
 
   const plans = useMemo(() => SUBSCRIPTION_PLANS, [])
+  
+  const onBack = useCallback(() => {
+    try {
+      const r: any = router
+      if (r?.canGoBack?.()) {
+        console.log('[Subscribe] back: can go back, navigating back')
+        r.back()
+      } else {
+        console.log('[Subscribe] back: no history, replacing to root')
+        r.replace('/')
+      }
+    } catch (e) {
+      console.log('[Subscribe] back error', e)
+      router.replace('/')
+    }
+  }, [router])
 
   const paymentMethods: PaymentMethodItem[] = useMemo(() => [
     {
@@ -128,7 +144,7 @@ export default function SubscribeScreen() {
         <View style={styles.topBar}>
           <TouchableOpacity
             testID="subscribe-back"
-            onPress={router.back}
+            onPress={onBack}
             style={styles.backBtn}
             accessibilityRole="button"
             accessibilityLabel="رجوع"
