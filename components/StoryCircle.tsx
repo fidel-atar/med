@@ -95,7 +95,7 @@ export default React.memo(StoryCircle, (prev, next) => {
 
 const AVATAR_SIZE = 60 as const
 const RING_WIDTH = 3 as const
-const WHITE_BORDER = 2 as const
+const WHITE_BORDER = 0 as const
 const OUTER_SIZE: number = AVATAR_SIZE + 2 * (RING_WIDTH + WHITE_BORDER)
 
 const styles = StyleSheet.create({
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     width: OUTER_SIZE - RING_WIDTH * 2,
     height: OUTER_SIZE - RING_WIDTH * 2,
     borderRadius: (OUTER_SIZE - RING_WIDTH * 2) / 2,
-    backgroundColor: Colors.mauritanian.white,
+    backgroundColor: 'transparent',
     padding: WHITE_BORDER,
     alignItems: 'center',
     justifyContent: 'center',
@@ -128,9 +128,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: Platform.OS === 'ios' ? 2 : 3,
     },
-    shadowOpacity: Platform.OS === 'ios' ? 0.12 : 0.18,
-    shadowRadius: Platform.OS === 'ios' ? 4 : 5,
-    elevation: Platform.OS === 'android' ? 4 : 0,
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
   },
   avatar: {
     width: AVATAR_SIZE,
