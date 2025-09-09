@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import {
   View,
   Text,
@@ -16,16 +16,16 @@ import {
   UserPlus,
   UserCheck,
   Trophy,
-  Star,
   Calendar,
   MapPin,
   ArrowLeft,
-
   Share,
 } from 'lucide-react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import Colors from '@/constants/colors'
 import MauritanianPattern from '@/components/MauritanianPattern'
+import PostCard from '@/components/PostCard'
+import { usePosts } from '@/hooks/usePosts'
 
 interface UserProfile {
   id: string
@@ -89,6 +89,7 @@ export default function UserProfilePage() {
   const { userId } = useLocalSearchParams<{ userId: string }>()
   const [user, setUser] = useState<UserProfile | null>(null)
   const [isFollowing, setIsFollowing] = useState(false)
+  const { posts, isLoading } = usePosts()
 
   useEffect(() => {
     if (userId && mockUsers[userId]) {
@@ -129,6 +130,28 @@ export default function UserProfilePage() {
     if (!user || user.gamesPlayed === 0) return 0
     return Math.round((user.gamesWon / user.gamesPlayed) * 100)
   }
+
+  const userIdSafe = user?.id ?? ''
+
+  const userPosts = useMemo(() => {
+    try {
+      const list = Array.isArray(posts) ? posts : []
+      return list.filter((p: any) => (p?.user_id ?? '') === userIdSafe)
+    } catch (e) {
+      console.log('userPosts filter error', e)
+      return [] as any[]
+    }
+  }, [posts, userIdSafe])
+
+  const onLike = useCallback(() => {
+    console.log('like clicked')
+  }, [])
+  const onComment = useCallback(() => {
+    console.log('comment clicked')
+  }, [])
+  const onShare = useCallback(() => {
+    console.log('share clicked')
+  }, [])
 
   if (!user) {
     return (
@@ -283,37 +306,41 @@ export default function UserProfilePage() {
           </View>
         </View>
 
-        {/* Badges */}
-        {user.badges.length > 0 && (
-          <View style={styles.sectionContainer}>
-            <View style={styles.sectionHeader}>
-              <Star size={20} color={Colors.mauritanian.gold} />
-              <Text style={styles.sectionTitle}>الشارات</Text>
-            </View>
-            
-            <View style={styles.badgesContainer}>
-              {user.badges.map((badge, index) => (
-                <View key={index} style={styles.badge}>
-                  <Text style={styles.badgeText}>{badge}</Text>
-                </View>
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>منشورات</Text>
+          </View>
+          {isLoading ? (
+            <Text style={styles.loadingText}>جارٍ التحميل...</Text>
+          ) : userPosts.length === 0 ? (
+            <Text style={styles.emptyText}>لا توجد منشورات بعد</Text>
+          ) : (
+            <View style={styles.postsList}>
+              {userPosts.map((post: any) => (
+                <PostCard
+                  key={post.id}
+                  id={post.id}
+                  username={post?.profiles?.username ?? user.username}
+                  userId={post?.profiles?.id ?? user.id}
+                  avatar={post?.profiles?.avatar_url}
+                  content={post.content ?? ''}
+                  imageUrl={post.image_url as string | undefined}
+                  videoUrl={(post as any).video_url ?? (post as any).video}
+                  likesCount={Number(post.likes_count ?? 0)}
+                  commentsCount={Number(post.comments_count ?? 0)}
+                  viewsCount={Number(post.views_count ?? 0)}
+                  isPromoted={Boolean(post.is_sponsored)}
+                  isSubscriber={Boolean(post?.profiles?.is_subscriber)}
+                  createdAt={post.createdAt ?? post.created_at ?? new Date().toISOString()}
+                  sponsorName={(post as any).sponsor_name}
+                  onLike={onLike}
+                  onComment={onComment}
+                  onShare={onShare}
+                />
               ))}
             </View>
-          </View>
-        )}
-
-        {/* Favorite Games */}
-        {user.favoriteGames.length > 0 && (
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>الألعاب المفضلة</Text>
-            <View style={styles.favoriteGamesContainer}>
-              {user.favoriteGames.map((game, index) => (
-                <View key={index} style={styles.favoriteGame}>
-                  <Text style={styles.favoriteGameText}>{game}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        )}
+          )}
+        </View>
 
         {/* Join Date */}
         <View style={styles.joinDateContainer}>
@@ -592,46 +619,18 @@ const styles = StyleSheet.create({
     color: Colors.mauritanian.mediumGray,
     fontWeight: '600',
   },
-  badgesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  badge: {
-    backgroundColor: Colors.mauritanian.gold,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    shadowColor: Colors.mauritanian.gold,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  badgeText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: Colors.mauritanian.white,
-  },
-  favoriteGamesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    marginTop: 12,
-  },
-  favoriteGame: {
-    backgroundColor: Colors.mauritanian.mauritanianBlue,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-  },
-  favoriteGameText: {
+  loadingText: {
     fontSize: 14,
-    fontWeight: '600',
-    color: Colors.mauritanian.white,
+    color: Colors.mauritanian.mediumGray,
+    textAlign: 'center',
+  },
+  emptyText: {
+    fontSize: 14,
+    color: Colors.mauritanian.mediumGray,
+    textAlign: 'center',
+  },
+  postsList: {
+    gap: 12,
   },
   joinDateContainer: {
     flexDirection: 'row',
