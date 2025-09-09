@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BackHandler, Platform } from 'react-native'
 import { AuthProvider } from '@/contexts/AuthContext'
+import Colors from '@/constants/colors'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -38,7 +39,7 @@ function RootLayoutNav() {
   }, [router])
 
   return (
-    <Stack screenOptions={{ headerBackTitle: 'رجوع' }}>
+    <Stack screenOptions={{ headerBackTitle: 'رجوع', contentStyle: { backgroundColor: Colors.mauritanian.gold } }}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="games" options={{ headerShown: false }} />
       <Stack.Screen name="settings" options={{ headerShown: true }} />
@@ -58,7 +59,7 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{ flex: 1, backgroundColor: Colors.mauritanian.gold }}>
           <RootLayoutNav />
         </GestureHandlerRootView>
       </AuthProvider>

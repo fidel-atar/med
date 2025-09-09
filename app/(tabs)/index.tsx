@@ -179,9 +179,9 @@ export default function CommunityScreen() {
   ), [handlePostLike, handlePostComment, handlePostShare])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} testID="community-screen">
       <LinearGradient
-        colors={[Colors.mauritanian.white, Colors.mauritanian.white]}
+        colors={[Colors.mauritanian.gold, Colors.mauritanian.gold]}
         style={styles.headerGradient}
       >
         <View style={styles.header}>
@@ -375,7 +375,7 @@ export default function CommunityScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.mauritanian.white,
+    backgroundColor: Colors.mauritanian.gold,
   },
   headerGradient: {
     paddingBottom: 2,
@@ -485,7 +485,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: Colors.mauritanian.lightSand,
+    backgroundColor: Colors.mauritanian.gold,
   },
   modalHeader: {
     flexDirection: 'row',
