@@ -12,6 +12,7 @@ import { Heart, MessageCircle, Share, MoreHorizontal, Eye, X, Play, Crown } from
 import { router } from 'expo-router'
 import Colors from '@/constants/colors'
 import { VideoView, useVideoPlayer } from 'expo-video'
+import { LinearGradient } from 'expo-linear-gradient'
 
 interface PostCardProps {
   id: string
@@ -141,9 +142,12 @@ function PostCard({
             <View style={styles.usernameContainer}>
               <Text style={styles.username}>{username}</Text>
               {isSubscriber && (
-                <View style={styles.subscriberBadge} testID="subscriber-badge">
-                  <Crown size={14} color={Colors.mauritanian.gold} />
-                </View>
+                <LinearGradient
+                  colors={[Colors.mauritanian.gold, Colors.mauritanian.amber]}
+                  style={styles.subscriberBadge}
+                >
+                  <Crown size={14} color={Colors.mauritanian.white} fill={Colors.mauritanian.white} />
+                </LinearGradient>
               )}
             </View>
             <View style={styles.timestampContainer}>
@@ -318,7 +322,6 @@ const styles = StyleSheet.create({
     marginLeft: 6,
     borderRadius: Platform.OS === 'ios' ? 10 : 8,
     padding: Platform.OS === 'ios' ? 3 : 2.5,
-    backgroundColor: Colors.mauritanian.white,
     shadowColor: Colors.mauritanian.gold,
     shadowOffset: {
       width: 0,

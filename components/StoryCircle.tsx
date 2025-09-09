@@ -63,9 +63,12 @@ function StoryCircle({
               </View>
             )}
             {isSubscriber && (
-              <View style={styles.subscriberOverlay} testID="story-subscriber-badge">
-                <Crown size={12} color={Colors.mauritanian.gold} />
-              </View>
+              <LinearGradient
+                colors={[Colors.mauritanian.gold, Colors.mauritanian.amber]}
+                style={styles.subscriberOverlay}
+              >
+                <Crown size={12} color={Colors.mauritanian.white} fill={Colors.mauritanian.white} />
+              </LinearGradient>
             )}
           </View>
         </LinearGradient>
@@ -179,7 +182,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: Platform.OS === 'ios' ? -2 : -1,
     right: Platform.OS === 'ios' ? -2 : -1,
-    backgroundColor: Colors.mauritanian.white,
     borderRadius: 10,
     padding: Platform.OS === 'ios' ? 3 : 2.5,
     shadowColor: Colors.mauritanian.gold,
