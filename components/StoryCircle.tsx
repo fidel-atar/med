@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image, Platform } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Crown } from 'lucide-react-native'
 import { router } from 'expo-router'
 import Colors from '@/constants/colors'
 
@@ -69,14 +68,6 @@ function StoryCircle({
         <Text style={styles.username} numberOfLines={1}>
           {username}
         </Text>
-        {isSubscriber && (
-          <LinearGradient
-            colors={[Colors.mauritanian.gold, Colors.mauritanian.amber]}
-            style={styles.subscriberBadge}
-          >
-            <Crown size={8} color={Colors.mauritanian.white} fill={Colors.mauritanian.white} />
-          </LinearGradient>
-        )}
       </View>
     </TouchableOpacity>
   )

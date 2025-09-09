@@ -8,8 +8,7 @@ import {
   Platform,
   Modal,
 } from 'react-native'
-import { Heart, MessageCircle, Share, MoreHorizontal, Crown, Eye, X, Play } from 'lucide-react-native'
-import { LinearGradient } from 'expo-linear-gradient'
+import { Heart, MessageCircle, Share, MoreHorizontal, Eye, X, Play } from 'lucide-react-native'
 import { router } from 'expo-router'
 import Colors from '@/constants/colors'
 import { VideoView, useVideoPlayer } from 'expo-video'
@@ -141,14 +140,6 @@ function PostCard({
           <View style={styles.userDetails}>
             <View style={styles.usernameContainer}>
               <Text style={styles.username}>{username}</Text>
-              {isSubscriber && (
-                <LinearGradient
-                  colors={[Colors.mauritanian.gold, Colors.mauritanian.amber]}
-                  style={styles.subscriberBadge}
-                >
-                  <Crown size={10} color={Colors.mauritanian.white} fill={Colors.mauritanian.white} />
-                </LinearGradient>
-              )}
             </View>
             <View style={styles.timestampContainer}>
               <Text style={styles.timestamp}>{formattedTime}</Text>
@@ -310,8 +301,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.mauritanian.mauritanianBlue,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: Colors.mauritanian.gold,
+    borderWidth: 0,
+    borderColor: 'transparent',
   },
   avatarText: {
     color: Colors.mauritanian.white,
