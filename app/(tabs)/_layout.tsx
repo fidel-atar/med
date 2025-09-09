@@ -12,9 +12,9 @@ export default function TabLayout() {
         tabBarInactiveTintColor: Colors.mauritanian.mediumGray,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: Colors.mauritanian.gold,
+          backgroundColor: Colors.mauritanian.white,
           borderTopWidth: 1,
-          borderTopColor: Colors.mauritanian.darkGold,
+          borderTopColor: Colors.mauritanian.sand,
           paddingBottom: Platform.OS === 'ios' ? 8 : 10,
           paddingTop: 6,
           height: Platform.OS === 'ios' ? 60 : 64,
