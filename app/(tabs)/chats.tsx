@@ -232,7 +232,7 @@ export default function ChatsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.mauritanian.lightSand,
+    backgroundColor: Colors.mauritanian.white,
   },
   headerGradient: {
     paddingBottom: 16,
