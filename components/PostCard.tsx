@@ -124,7 +124,7 @@ function PostCard({
   }, [userId])
 
   return (
-    <View style={[styles.container, isPromoted && styles.sponsoredContainer]} testID={`post-${id}`}>
+    <View style={styles.container} testID={`post-${id}`}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.userInfo} onPress={handleUserPress}>
           <View style={styles.avatarContainer}>
