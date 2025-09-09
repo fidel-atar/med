@@ -8,7 +8,7 @@ import {
   Platform,
   Modal,
 } from 'react-native'
-import { Heart, MessageCircle, Share, MoreHorizontal, Eye, X, Play } from 'lucide-react-native'
+import { Heart, MessageCircle, Share, MoreHorizontal, Eye, X, Play, Crown } from 'lucide-react-native'
 import { router } from 'expo-router'
 import Colors from '@/constants/colors'
 import { VideoView, useVideoPlayer } from 'expo-video'
@@ -140,6 +140,11 @@ function PostCard({
           <View style={styles.userDetails}>
             <View style={styles.usernameContainer}>
               <Text style={styles.username}>{username}</Text>
+              {isSubscriber && (
+                <View style={styles.subscriberBadge} testID="subscriber-badge">
+                  <Crown size={14} color={Colors.mauritanian.gold} />
+                </View>
+              )}
             </View>
             <View style={styles.timestampContainer}>
               <Text style={styles.timestamp}>{formattedTime}</Text>
@@ -313,6 +318,7 @@ const styles = StyleSheet.create({
     marginLeft: 6,
     borderRadius: Platform.OS === 'ios' ? 10 : 8,
     padding: Platform.OS === 'ios' ? 3 : 2.5,
+    backgroundColor: Colors.mauritanian.white,
     shadowColor: Colors.mauritanian.gold,
     shadowOffset: {
       width: 0,

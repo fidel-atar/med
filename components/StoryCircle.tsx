@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, Platform } from 'react
 import { LinearGradient } from 'expo-linear-gradient'
 import { router } from 'expo-router'
 import Colors from '@/constants/colors'
+import { Crown } from 'lucide-react-native'
 
 interface StoryCircleProps {
   username: string
@@ -59,6 +60,11 @@ function StoryCircle({
                 <Text style={styles.avatarText}>
                   {username.charAt(0).toUpperCase()}
                 </Text>
+              </View>
+            )}
+            {isSubscriber && (
+              <View style={styles.subscriberOverlay} testID="story-subscriber-badge">
+                <Crown size={12} color={Colors.mauritanian.gold} />
               </View>
             )}
           </View>
@@ -163,6 +169,21 @@ const styles = StyleSheet.create({
       width: 0,
       height: Platform.OS === 'ios' ? 1 : 2,
     },
+    shadowOpacity: Platform.OS === 'ios' ? 0.4 : 0.5,
+    shadowRadius: Platform.OS === 'ios' ? 3 : 4,
+    elevation: Platform.OS === 'android' ? 6 : 0,
+    borderWidth: Platform.OS === 'ios' ? 1 : 0.5,
+    borderColor: Colors.mauritanian.white,
+  },
+  subscriberOverlay: {
+    position: 'absolute',
+    bottom: Platform.OS === 'ios' ? -2 : -1,
+    right: Platform.OS === 'ios' ? -2 : -1,
+    backgroundColor: Colors.mauritanian.white,
+    borderRadius: 10,
+    padding: Platform.OS === 'ios' ? 3 : 2.5,
+    shadowColor: Colors.mauritanian.gold,
+    shadowOffset: { width: 0, height: Platform.OS === 'ios' ? 1 : 2 },
     shadowOpacity: Platform.OS === 'ios' ? 0.4 : 0.5,
     shadowRadius: Platform.OS === 'ios' ? 3 : 4,
     elevation: Platform.OS === 'android' ? 6 : 0,
