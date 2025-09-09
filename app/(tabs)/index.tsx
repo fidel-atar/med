@@ -469,25 +469,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   storiesSection: {
-    backgroundColor: Colors.mauritanian.white,
-    paddingVertical: Platform.OS === 'ios' ? 20 : 18,
+    backgroundColor: 'transparent',
+    paddingVertical: Platform.OS === 'ios' ? 12 : 10,
     marginTop: 8,
-    borderRadius: Platform.OS === 'ios' ? 16 : 12,
-    shadowColor: Colors.mauritanian.mauritanianBlue,
-    shadowOffset: {
-      width: 0,
-      height: Platform.OS === 'ios' ? 4 : 5,
-    },
-    shadowOpacity: Platform.OS === 'ios' ? 0.1 : 0.15,
-    shadowRadius: Platform.OS === 'ios' ? 8 : 10,
-    elevation: Platform.OS === 'android' ? 8 : 0,
-    borderWidth: Platform.OS === 'ios' ? 1 : 0.5,
-    borderColor: Colors.mauritanian.sand,
     alignSelf: 'stretch',
     width: '100%',
   },
   storiesList: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 8,
   },
   postsSection: {
     paddingHorizontal: 16,
