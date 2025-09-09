@@ -40,7 +40,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'جماعتك',
+          title: '',
           tabBarIcon: ({ color, size }) => <Users color={color} size={size} />,
         }}
       />

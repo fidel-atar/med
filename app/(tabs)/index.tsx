@@ -187,7 +187,7 @@ export default function CommunityScreen() {
         <View style={styles.header}>
           <View style={styles.titleContainer}>
             <MauritanianPattern size={24} />
-            <Text style={styles.title}>جماعتك</Text>
+            <View style={{ width: 0 }} />
             <MauritanianPattern size={24} />
           </View>
           <View style={styles.headerActions}>
