@@ -186,28 +186,6 @@ export default function ProfileScreen() {
             </View>
           </View>
 
-          <View style={styles.achievementsSection}>
-            <Text style={styles.sectionTitle}>الإنجازات</Text>
-            <View style={styles.achievementsGrid}>
-              {user.achievements.map((achievement) => (
-                <View
-                  key={achievement.id}
-                  style={[
-                    styles.achievementCard,
-                    !achievement.earned && styles.achievementLocked,
-                  ]}
-                >
-                  <Text style={styles.achievementIcon}>{achievement.icon}</Text>
-                  <Text style={[
-                    styles.achievementName,
-                    !achievement.earned && styles.achievementNameLocked,
-                  ]}>
-                    {achievement.name}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          </View>
 
           <View style={styles.menuSection}>
             <TouchableOpacity 
